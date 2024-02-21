@@ -1,0 +1,26 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: users-microservice
+  config:
+    import: "configserver:http://localhost:8888"
+  cloud:
+    config:
+      uri: http://localhost:8888
+      profile: dev
+      username: root
+      password: 1234
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}:${random.uuid}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

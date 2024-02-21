@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: application-gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: products-microservice
+            uri: http://localhost:8081
+            predicates:
+              - Path=/api/products/**
+              - Method=GET
+          - id: products-test-microservice
+            uri: http://localhost:8081
+            predicates:
+              - Path=/api/test/**
+              - Method=GET
+          - id: users-microservice
+            uri: http://localhost:8082
+            predicates:
+              - Path=/api/users/**
+              - Method=GET
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+server:
+  port: 8091
+
+
